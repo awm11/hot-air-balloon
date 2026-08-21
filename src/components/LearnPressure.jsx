@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 
 const WIDTH = 600;
 const HEIGHT = 560;
-const PARTICLE_COUNT = 2100;
-const PARTICLE_RADIUS = 1.4;
+const PARTICLE_COUNT = 1680;
+const PARTICLE_RADIUS = 2.1;
 const PARTICLE_MASS = 0.035;
 const GRAVITY = 22;
 const THERMAL_SPEED = 82;
+const PARTICLE_SPEED = THERMAL_SPEED * 0.6;
 const FIXED_DT = 1 / 120;
 const SENSOR_FRONT_X = WIDTH - 68;
 const SENSOR_HEIGHT = 52;
@@ -60,8 +61,8 @@ function createParticle(rng) {
         y,
         px: x,
         py: y,
-        vx: normalRandom(rng) * THERMAL_SPEED,
-        vy: normalRandom(rng) * THERMAL_SPEED,
+        vx: normalRandom(rng) * PARTICLE_SPEED,
+        vy: normalRandom(rng) * PARTICLE_SPEED,
       };
     }
   }
@@ -71,8 +72,8 @@ function createParticle(rng) {
     y: HEIGHT / 2,
     px: WIDTH / 3,
     py: HEIGHT / 2,
-    vx: normalRandom(rng) * THERMAL_SPEED,
-    vy: normalRandom(rng) * THERMAL_SPEED,
+    vx: normalRandom(rng) * PARTICLE_SPEED,
+    vy: normalRandom(rng) * PARTICLE_SPEED,
   };
 }
 
