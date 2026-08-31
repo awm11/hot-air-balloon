@@ -322,12 +322,14 @@ export default function LearnPressure() {
   return (
     <section className="learn-section learn-pressure-lesson" aria-labelledby="pressure-lesson-title">
       <div className="learn-intro">
-        <p className="learn-kicker">LEARN 1 OF 3 · PRESSURE WITH DEPTH</p>
-        <h2 id="pressure-lesson-title">Why is pressure greater lower down?</h2>
+        <p className="learn-kicker">LEARN 1 OF 2 · PRESSURE WITH DEPTH</p>
+        <h2 id="pressure-lesson-title">Why is air pressure greater closer to the earth's surface?</h2>
         <p>
-          These identical sensors face sideways into one continuous particle column. Gravity
-          creates a greater particle density lower down, so the deeper sensor surfaces receive
-          more momentum from collisions—even though every sensor has the same size and direction.
+          The sensors are all the same size and face sideways. Gravity pulls air particles towards
+          Earth, so there are more particles lower down. These particles collide with the lower
+          sensors more often, leading to a greater average force over the same area, which creates
+          greater pressure. Note that pressure in liquids does not follow the same logic, although
+          the result is similar!
         </p>
       </div>
 

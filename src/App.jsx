@@ -102,17 +102,19 @@ export default function App() {
           <p className="eyebrow">THE MAGIC OF LIGHTER THAN AIR FLIGHT</p>
           <h1>Hot-Air Balloon Lab</h1>
         </div>
-        <div className="causal-chain" aria-label="Causal chain">
-          <span>burner adds KE</span>
-          <b>→</b>
-          <span>temperature rises</span>
-          <b>→</b>
-          <span>air leaves</span>
-          <b>→</b>
-          <span>density falls</span>
-          <b>→</b>
-          <span>lift</span>
-        </div>
+        {activeSection !== 'learn' && (
+          <div className="causal-chain" aria-label="Causal chain">
+            <span>burner adds KE</span>
+            <b>→</b>
+            <span>temperature rises</span>
+            <b>→</b>
+            <span>air leaves</span>
+            <b>→</b>
+            <span>density falls</span>
+            <b>→</b>
+            <span>lift</span>
+          </div>
+        )}
         <nav className="section-switcher" aria-label="Main sections">
           <button
             type="button"

@@ -78,10 +78,16 @@ export default function AltitudeMap({ altitudeM, daylight = false }) {
 
         {ticks.map((metres) => {
           const y = groundY - (metres / mapMaxM) * (groundY - MAP_TOP_Y);
+          const isGroundLevel = metres === 0;
           return (
             <g key={metres}>
               <line x1="17" y1={y} x2="29" y2={y} className="altitude-map-tick" />
-              <text x="33" y={y + 3} className="altitude-map-label">
+              <text
+                x={isGroundLevel ? 48 : 33}
+                y={isGroundLevel ? y - 8 : y + 3}
+                textAnchor={isGroundLevel ? 'end' : undefined}
+                className="altitude-map-label"
+              >
                 {Math.round(metres)} m
               </text>
             </g>

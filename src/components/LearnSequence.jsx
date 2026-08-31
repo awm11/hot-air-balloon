@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import LearnPressure from './LearnPressure.jsx';
 import LearnBuoyancy from './LearnBuoyancy.jsx';
-import LearnLiquidPressure from './LearnLiquidPressure.jsx';
 
 const STEPS = [
   { id: 'pressure', label: 'Pressure with depth' },
   { id: 'buoyancy', label: 'Buoyancy from collisions' },
-  { id: 'liquid', label: 'Applied pressure' },
 ];
 
 export default function LearnSequence() {
@@ -31,7 +29,6 @@ export default function LearnSequence() {
 
       {stepIndex === 0 && <LearnPressure />}
       {stepIndex === 1 && <LearnBuoyancy />}
-      {stepIndex === 2 && <LearnLiquidPressure />}
 
       <div className="learn-step-actions" aria-label="Learn exercise navigation">
         {stepIndex > 0 && (

@@ -152,7 +152,7 @@ function drawPressureGradient(ctx, cameraAltitudeM, colors) {
   ctx.strokeStyle = colors.grid;
   ctx.fillStyle = colors.muted;
   ctx.lineWidth = 1;
-  ctx.font = '600 11px Inter, system-ui, sans-serif';
+  ctx.font = '700 20px Inter, system-ui, sans-serif';
   ctx.textBaseline = 'bottom';
 
   for (
@@ -174,7 +174,8 @@ function drawPressureGradient(ctx, cameraAltitudeM, colors) {
     // atmospheric pressure on the right. Both belong to this fixed world
     // contour and therefore keep the same values as the balloon moves past.
     ctx.textAlign = 'left';
-    ctx.fillText(`${altitudeM.toFixed(0)} m`, 16, y - 5);
+    const altitudeLabelOffsetY = altitudeM === 0 ? 14 : 5;
+    ctx.fillText(`${altitudeM.toFixed(0)} m`, 16, y - altitudeLabelOffsetY);
 
     ctx.textAlign = 'right';
     ctx.fillText(`${(pressurePa / 1000).toFixed(2)} kPa`, SIM.width - 16, y - 5);
@@ -532,7 +533,7 @@ function drawBurnerAndBasket(ctx, burner, basketPayloadMassKg, colors, includeFl
   }
 
   ctx.fillStyle = burner > 0.5 ? colors.burner : colors.muted;
-  ctx.font = '700 10px Inter, system-ui, sans-serif';
+  ctx.font = '700 14px Inter, system-ui, sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText(burner > 0.5 ? 'BURNER ON' : 'BURNER', BALLOON.cx, BALLOON.bottom + 59);
   ctx.restore();
@@ -546,7 +547,13 @@ function drawVerticalForce(
   label,
   color,
   side = 'right',
-  { minimumForceKN = 0.5, minimumLengthPx = 0, decimals = 1 } = {},
+  {
+    minimumForceKN = 0.5,
+    minimumLengthPx = 0,
+    decimals = 1,
+    contrastOutline = false,
+    stackValue = false,
+  } = {},
 ) {
   const forceKN = forceN / 1000;
   const absoluteForceKN = Math.abs(forceKN);
@@ -565,14 +572,25 @@ function drawVerticalForce(
   // Arrowhead geometry is deliberately constant. Only shaft/tip distance
   // represents force magnitude, so arrowheads never imply a second scale.
   const shortArrowScale = clamp(absoluteForceKN / 3, 0, 1);
-  const headLength = 6 + 6 * shortArrowScale;
-  const headHalfWidth = 4 + 3.5 * shortArrowScale;
+  const headLength = 8 + 7 * shortArrowScale;
+  const headHalfWidth = 6 + 4.5 * shortArrowScale;
 
   ctx.save();
+  const shaftWidth = 4 + 2 * shortArrowScale;
+  ctx.lineCap = 'butt';
+
+  if (contrastOutline) {
+    ctx.strokeStyle = 'rgba(5, 12, 18, 0.92)';
+    ctx.lineWidth = shaftWidth + 5;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, lineEndY);
+    ctx.stroke();
+  }
+
   ctx.strokeStyle = color;
   ctx.fillStyle = color;
-  ctx.lineWidth = 2.8 + 1.4 * shortArrowScale;
-  ctx.lineCap = 'butt';
+  ctx.lineWidth = shaftWidth;
   ctx.beginPath();
   ctx.moveTo(x, y);
   ctx.lineTo(x, lineEndY);
@@ -587,24 +605,45 @@ function drawVerticalForce(
   ctx.lineTo(x + headHalfWidth, lineEndY);
   ctx.closePath();
   ctx.fill();
+  if (contrastOutline) {
+    ctx.strokeStyle = 'rgba(5, 12, 18, 0.92)';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
 
-  const labelText = `${label} ${absoluteForceKN.toFixed(decimals)} kN`;
-  ctx.font = '700 14px Inter, system-ui, sans-serif';
+  const valueText = `${absoluteForceKN.toFixed(decimals)} kN`;
+  const labelText = `${label} ${valueText}`;
+  const labelFontPx = 22;
+  const labelLineHeight = 24;
+  ctx.font = `700 ${labelFontPx}px Inter, system-ui, sans-serif`;
   ctx.textBaseline = 'middle';
   ctx.textAlign = side === 'left' ? 'right' : 'left';
   const labelX = x + (side === 'left' ? -12 : 12);
   const labelY = (y + lineEndY) / 2;
-  const textWidth = ctx.measureText(labelText).width;
+  const textWidth = stackValue
+    ? Math.max(ctx.measureText(label).width, ctx.measureText(valueText).width)
+    : ctx.measureText(labelText).width;
   const padX = 6;
   const padY = 4;
+  const contentHeight = stackValue ? labelLineHeight * 2 : labelFontPx;
   const boxX = side === 'left'
     ? labelX - textWidth - padX
     : labelX - padX;
 
   ctx.fillStyle = 'rgba(7, 19, 31, 0.82)';
-  ctx.fillRect(boxX, labelY - 9 - padY, textWidth + padX * 2, 18 + padY * 2);
+  ctx.fillRect(
+    boxX,
+    labelY - contentHeight / 2 - padY,
+    textWidth + padX * 2,
+    contentHeight + padY * 2,
+  );
   ctx.fillStyle = color;
-  ctx.fillText(labelText, labelX, labelY);
+  if (stackValue) {
+    ctx.fillText(label, labelX, labelY - labelLineHeight / 2);
+    ctx.fillText(valueText, labelX, labelY + labelLineHeight / 2);
+  } else {
+    ctx.fillText(labelText, labelX, labelY);
+  }
   ctx.restore();
 }
 
@@ -618,9 +657,19 @@ function drawForces(ctx, metrics, colors) {
     'upthrust',
     colors.up,
     'left',
+    { stackValue: true },
   );
   drawVerticalForce(ctx, BALLOON.cx, BALLOON.top + 190.8, -metrics.balloonContentsWeightN, 'balloon + contents', colors.down, 'right');
-  drawVerticalForce(ctx, BALLOON.cx + 18, BALLOON.basketTop + 24, -metrics.basketWeightN, 'basket', colors.down, 'right');
+  drawVerticalForce(
+    ctx,
+    BALLOON.cx + 18,
+    BALLOON.basketTop + 24,
+    -metrics.basketWeightN,
+    'basket',
+    colors.down,
+    'right',
+    { contrastOutline: true },
+  );
 
   if (metrics.reactionN > 0) {
     drawVerticalForce(

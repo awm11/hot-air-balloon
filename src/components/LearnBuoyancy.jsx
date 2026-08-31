@@ -746,7 +746,7 @@ export default function LearnBuoyancy() {
   return (
     <section className="learn-section learn-buoyancy-lesson" aria-labelledby="learn-title">
       <div className="learn-intro">
-        <p className="learn-kicker">LEARN 2 OF 3 · BUOYANCY FROM COLLISIONS</p>
+        <p className="learn-kicker">LEARN 2 OF 2 · BUOYANCY FROM COLLISIONS</p>
         <h2 id="learn-title">Why does a less-dense object rise?</h2>
         <p>
           Gravity makes the surrounding particle sea denser—and its collision pressure larger—at

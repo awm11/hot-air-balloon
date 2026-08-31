@@ -72,7 +72,7 @@ input:focus-visible {
 }
 
 .app-shell {
-  width: min(1405px, calc(100% - 1.5rem));
+  width: calc(100% - 1.5rem);
   margin: 0 auto;
   padding: 1.4rem 0 3.5rem;
 }
@@ -151,6 +151,7 @@ h2 {
 
 .section-switcher {
   display: grid;
+  grid-column: 3;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   width: 100%;
   margin: 0;
@@ -331,38 +332,34 @@ h2 {
 }
 
 .learn-pressure-lesson .learn-intro {
-  max-width: 1120px;
-  margin-bottom: 1.25rem;
+  max-width: 1060px;
+  margin-bottom: 1.05rem;
 }
 
 .learn-pressure-lesson .learn-kicker {
-  margin-bottom: 0.7rem;
-  font-size: 1.3rem;
+  font-size: 0.85rem;
 }
 
 .learn-pressure-lesson .learn-intro h2 {
-  margin-bottom: 1rem;
-  font-size: clamp(3.5rem, 6.5vw, 6rem);
-  line-height: 1.02;
+  font-size: clamp(2rem, 3.75vw, 2.95rem);
 }
 
 .learn-pressure-lesson .learn-intro > p:last-child {
-  font-size: clamp(1.55rem, 2.3vw, 2rem);
-  line-height: 1.42;
+  font-size: 1.2rem;
 }
 
 .learn-pressure-lesson .learn-causal-chain {
-  gap: 0.8rem;
-  margin-bottom: 1.4rem;
-  font-size: clamp(1.3rem, 1.7vw, 1.55rem);
+  gap: 0.48rem;
+  margin-bottom: 0.9rem;
+  font-size: 0.88rem;
 }
 
 .learn-pressure-lesson .learn-causal-chain span {
-  padding: 0.52rem 0.8rem;
+  padding: 0.38rem 0.65rem;
 }
 
 .learn-pressure-lesson .learn-causal-chain b {
-  font-size: 1.4em;
+  font-size: inherit;
 }
 
 .pressure-column-wrap {
@@ -571,7 +568,7 @@ h2 {
 }
 
 .learn-buoyancy-lesson .learn-intro {
-  max-width: 1060px;
+  max-width: min(1500px, 100%);
   margin-bottom: 1.05rem;
 }
 
@@ -588,21 +585,41 @@ h2 {
 }
 
 .learn-buoyancy-lesson .learn-causal-chain {
-  gap: 0.48rem;
+  gap: 0.62rem;
   margin-bottom: 0.9rem;
-  font-size: 0.88rem;
+  font-size: 1.1rem;
 }
 
 .learn-buoyancy-lesson .learn-causal-chain span {
-  padding: 0.38rem 0.65rem;
+  padding: 0.5rem 0.8rem;
+}
+
+.learn-buoyancy-lesson .learn-causal-chain b {
+  font-size: 1.2em;
+}
+
+.learn-section.learn-buoyancy-lesson {
+  width: 100%;
 }
 
 .learn-buoyancy-lesson .learn-visual-row {
-  grid-template-columns: 315px minmax(0, 1fr) 265px;
+  grid-template-columns: minmax(315px, 1.15fr) auto minmax(265px, 0.85fr);
 }
 
 .learn-buoyancy-lesson .learn-simulation-card {
-  width: min(1220px, 100%);
+  width: 100%;
+}
+
+.learn-buoyancy-lesson .learn-canvas-wrap {
+  display: grid;
+  place-items: center;
+}
+
+.learn-buoyancy-lesson .learn-canvas {
+  width: auto;
+  max-width: 100%;
+  height: min(900px, calc(100vh - 1.5rem));
+  aspect-ratio: 540 / 650;
 }
 
 .learn-buoyancy-lesson .learn-left-pane {
@@ -697,22 +714,22 @@ h2 {
 
 .learn-buoyancy-lesson .learn-group-heading p,
 .learn-buoyancy-lesson .learn-particle-control > span {
-  font-size: 0.86rem;
+  font-size: 1rem;
 }
 
 .learn-buoyancy-lesson .learn-group-heading small,
 .learn-buoyancy-lesson .learn-particle-control small {
-  font-size: 0.72rem;
+  font-size: 0.84rem;
 }
 
 .learn-buoyancy-lesson .learn-particle-control output {
-  font-size: 1.06rem;
+  font-size: 1.3rem;
 }
 
 .learn-buoyancy-lesson .learn-valve-actions button,
 .learn-buoyancy-lesson .learn-position-actions button {
-  min-height: 2.15rem;
-  font-size: 0.8rem;
+  min-height: 2.5rem;
+  font-size: 0.94rem;
 }
 
 .learn-buoyancy-lesson .learn-transfer-control {
@@ -722,11 +739,11 @@ h2 {
 }
 
 .learn-buoyancy-lesson .learn-transfer-control > span {
-  font-size: 0.66rem;
+  font-size: 0.78rem;
 }
 
 .learn-buoyancy-lesson .learn-position-control {
-  height: 9.8rem;
+  height: 11.25rem;
   gap: 0.36rem;
   padding: 0.62rem;
 }
@@ -736,11 +753,11 @@ h2 {
 }
 
 .learn-buoyancy-lesson .learn-position-control > p:first-child {
-  font-size: 0.84rem;
+  font-size: 0.98rem;
 }
 
 .learn-buoyancy-lesson .learn-live-state {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
 }
 
 .learn-buoyancy-lesson .learn-collision-counts {
@@ -762,32 +779,32 @@ h2 {
 }
 
 .learn-buoyancy-lesson .learn-collision-counts > p {
-  font-size: 0.88rem;
+  font-size: 1rem;
 }
 
 .learn-buoyancy-lesson .learn-collision-counts > p small,
 .learn-buoyancy-lesson .learn-collision-surface > div span {
-  font-size: 0.72rem;
+  font-size: 0.82rem;
 }
 
 .learn-buoyancy-lesson .learn-collision-surface header strong {
-  font-size: 0.7rem;
+  font-size: 0.82rem;
 }
 
 .learn-buoyancy-lesson .learn-collision-surface header small {
-  font-size: 0.65rem;
+  font-size: 0.74rem;
 }
 
 .learn-buoyancy-lesson .learn-collision-surface > div strong {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .learn-buoyancy-lesson .learn-pressure-pane h3 {
-  font-size: 0.94rem;
+  font-size: 1.12rem;
 }
 
 .learn-buoyancy-lesson .learn-pressure-pane p {
-  font-size: 0.75rem;
+  font-size: 0.88rem;
 }
 
 .learn-buoyancy-lesson .learn-pressure-columns {
@@ -796,19 +813,19 @@ h2 {
 
 .learn-buoyancy-lesson .learn-pressure-band > span,
 .learn-buoyancy-lesson .learn-pressure-key {
-  font-size: 0.72rem;
+  font-size: 0.85rem;
 }
 
 .learn-buoyancy-lesson .learn-pressure-reading output {
-  font-size: 0.8rem;
+  font-size: 0.96rem;
 }
 
 .learn-buoyancy-lesson .learn-pressure-track {
-  height: 0.98rem;
+  height: 1.12rem;
 }
 
 .learn-buoyancy-lesson .learn-caption {
-  max-width: 1100px;
+  max-width: min(1500px, 100%);
   font-size: 0.9rem;
   line-height: 1.5;
 }
@@ -1253,7 +1270,7 @@ h2 {
 
 .lab-layout {
   display: grid;
-  grid-template-columns: minmax(765px, 1.87fr) minmax(390px, 0.92fr);
+  grid-template-columns: minmax(720px, 1.15fr) minmax(570px, 1fr);
   gap: 0.85rem;
   align-items: start;
 }
@@ -1322,13 +1339,13 @@ h2 {
 
 .altitude-map-heading strong {
   color: var(--altitude-heading);
-  font-size: 0.58rem;
-  letter-spacing: 0.09em;
+  font-size: 1.02rem;
+  letter-spacing: 0.055em;
 }
 
 .altitude-map-heading span {
   color: var(--altitude-value);
-  font-size: 0.66rem;
+  font-size: 1.12rem;
   font-weight: 760;
   font-variant-numeric: tabular-nums;
 }
@@ -1356,7 +1373,7 @@ h2 {
 .altitude-map-label,
 .altitude-map-ground-label {
   fill: var(--altitude-label);
-  font: 600 8px Inter, system-ui, sans-serif;
+  font: 750 15px Inter, system-ui, sans-serif;
 }
 
 .altitude-map-guide {
@@ -1390,6 +1407,11 @@ h2 {
   min-width: 0;
 }
 
+.simulation-column {
+  display: grid;
+  justify-items: center;
+}
+
 .lab-sidebar {
   display: grid;
   gap: 0.72rem;
@@ -1398,6 +1420,10 @@ h2 {
 .simulation-host {
   position: relative;
   overflow: hidden;
+  width: auto;
+  max-width: 100%;
+  height: min(996px, calc(100vh - 1.5rem));
+  aspect-ratio: 825 / 996;
   border: 1px solid var(--border);
   border-radius: 18px;
   background: var(--sim-bg);
@@ -1406,7 +1432,7 @@ h2 {
 .simulation-canvas {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   aspect-ratio: 825 / 996;
 }
 
@@ -1417,7 +1443,7 @@ h2 {
   z-index: 3;
   display: grid;
   gap: 0.08rem;
-  min-width: 8.2rem;
+  min-width: 9.6rem;
   padding: 0.5rem 0.6rem;
   transform: translate(-50%, -50%);
   border-color: rgba(139, 215, 255, 0.58);
@@ -1430,13 +1456,13 @@ h2 {
 
 .vent-control strong {
   color: var(--accent-2);
-  font-size: 0.72rem;
+  font-size: 0.92rem;
   letter-spacing: 0.035em;
 }
 
 .vent-control small {
   color: var(--muted);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   line-height: 1.2;
 }
 
@@ -1465,11 +1491,11 @@ h2 {
 .burner-control {
   position: absolute;
   left: 62.8%;
-  top: calc(84% + var(--balloon-visual-rise, 0%));
+  top: calc(80% + var(--balloon-visual-rise, 0%));
   z-index: 3;
   display: grid;
   gap: 0.08rem;
-  min-width: 7.4rem;
+  min-width: 9rem;
   padding: 0.52rem 0.62rem;
   transform: translate(-50%, -50%);
   border-color: rgba(255, 179, 86, 0.58);
@@ -1482,13 +1508,13 @@ h2 {
 
 .burner-control strong {
   color: var(--accent);
-  font-size: 0.74rem;
+  font-size: 0.94rem;
   letter-spacing: 0.045em;
 }
 
 .burner-control small {
   color: var(--muted);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   line-height: 1.2;
 }
 
@@ -1533,7 +1559,7 @@ h2 {
   margin: 0 0 0.5rem;
   padding-right: 3.75rem;
   color: var(--accent-2);
-  font-size: 0.72rem;
+  font-size: 0.88rem;
   font-weight: 780;
   letter-spacing: 0.075em;
   text-transform: uppercase;
@@ -1629,9 +1655,26 @@ h2 {
 
 .readout-group-body.has-aside {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 118px;
-  gap: 0.55rem;
+  grid-template-columns: minmax(230px, 1fr) minmax(270px, 1.08fr);
+  gap: 0.65rem;
   align-items: stretch;
+}
+
+.air-state-side {
+  display: grid;
+  grid-template-columns: 104px minmax(0, 1fr);
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.air-state-side-metrics {
+  display: grid;
+  gap: 0.48rem;
+  min-width: 0;
+}
+
+.force-readout-group .readout-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .flight-readout-group .readout-grid {
@@ -1643,7 +1686,7 @@ h2 {
 }
 
 .flight-motion-metric > strong {
-  font-size: 0.88rem;
+  font-size: 1.02rem;
 }
 
 .metric {
@@ -1662,13 +1705,13 @@ h2 {
 
 .metric > span {
   margin-bottom: 0.2rem;
-  font-size: 0.68rem;
+  font-size: 0.85rem;
 }
 
 .metric > strong {
   display: block;
   overflow: hidden;
-  font-size: 0.98rem;
+  font-size: 1.25rem;
   font-variant-numeric: tabular-nums;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1677,7 +1720,7 @@ h2 {
 .metric > small {
   margin-top: 0.18rem;
   overflow: hidden;
-  font-size: 0.61rem;
+  font-size: 0.75rem;
   line-height: 1.26;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1708,11 +1751,11 @@ h2 {
 
 .airflow-row {
   display: grid;
-  grid-template-columns: 3.9rem minmax(112px, 1fr) minmax(4.5rem, auto) 3.2rem;
-  gap: 0.42rem;
+  grid-template-columns: 5rem minmax(112px, 1fr) minmax(5.2rem, auto) 3.6rem;
+  gap: 0.55rem;
   align-items: center;
   min-width: 0;
-  padding: 0.42rem 0.55rem;
+  padding: 0.68rem 0.72rem;
   border: 1px solid var(--border);
   border-radius: 11px;
   background: rgba(10, 25, 39, 0.76);
@@ -1720,15 +1763,22 @@ h2 {
 
 .airflow-opening {
   color: var(--accent-2);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   letter-spacing: 0.055em;
   line-height: 1.05;
+  white-space: nowrap;
+}
+
+.flow-timeseries-wrap {
+  position: relative;
+  min-width: 0;
+  height: 82px;
 }
 
 .flow-timeseries {
   display: block;
   width: 100%;
-  height: 58px;
+  height: 82px;
   overflow: visible;
 }
 
@@ -1754,18 +1804,29 @@ h2 {
   stroke: var(--negative);
 }
 
-.flow-axis-label {
-  fill: rgba(178, 211, 235, 0.68);
-  font: 700 5.5px Inter, system-ui, sans-serif;
-  letter-spacing: 0.07em;
-  paint-order: stroke;
-  stroke: rgba(10, 25, 39, 0.92);
-  stroke-width: 2px;
+.flow-direction-labels {
+  position: absolute;
+  top: 50%;
+  left: 0.35rem;
+  display: grid;
+  gap: 0.08rem;
+  transform: translateY(-50%);
+  color: rgba(178, 211, 235, 0.76);
+  font-size: 0.64rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-shadow:
+    -2px 0 rgba(10, 25, 39, 0.96),
+    2px 0 rgba(10, 25, 39, 0.96),
+    0 -2px rgba(10, 25, 39, 0.96),
+    0 2px rgba(10, 25, 39, 0.96);
+  pointer-events: none;
 }
 
 .airflow-value {
   color: var(--text);
-  font-size: 0.88rem;
+  font-size: 1.15rem;
   font-weight: 780;
   font-variant-numeric: tabular-nums;
   text-align: right;
@@ -1782,7 +1843,7 @@ h2 {
 
 .airflow-unit {
   color: var(--muted);
-  font-size: 0.61rem;
+  font-size: 0.74rem;
   white-space: nowrap;
 }
 
@@ -1804,7 +1865,7 @@ h2 {
 
 .density-comparison-title {
   color: var(--muted);
-  font-size: 0.68rem;
+  font-size: 0.85rem;
 }
 
 .density-bar-row {
@@ -1816,13 +1877,13 @@ h2 {
 
 .density-bar-row > span {
   color: var(--muted);
-  font-size: 0.66rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .density-bar-row > strong {
-  font-size: 0.76rem;
+  font-size: 0.95rem;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -1859,7 +1920,7 @@ h2 {
   padding-top: 0.48rem;
   border-top: 1px solid var(--border);
   color: var(--text);
-  font-size: 0.72rem;
+  font-size: 0.88rem;
   text-align: center;
 }
 
@@ -2128,6 +2189,10 @@ h2 {
     grid-column: 1 / -1;
   }
 
+  .section-switcher {
+    grid-column: 2;
+  }
+
   .lab-layout {
     grid-template-columns: 1fr;
   }
@@ -2162,6 +2227,16 @@ h2 {
   }
 }
 
+@media (max-width: 1500px) {
+  .lab-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-sidebar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 720px) {
   .hero {
     grid-template-columns: 1fr;
@@ -2172,7 +2247,9 @@ h2 {
   }
 
   .section-switcher {
-    justify-self: stretch;
+    grid-column: 1;
+    width: min(360px, 100%);
+    justify-self: end;
   }
 
   .pressure-lesson-card {
@@ -2204,6 +2281,10 @@ h2 {
 
   .lab-sidebar,
   .note-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .air-state-readout-group .readout-group-body.has-aside {
     grid-template-columns: 1fr;
   }
 
@@ -2372,7 +2453,7 @@ h2 {
   position: relative;
   display: block;
   width: 74px;
-  height: 178px;
+  height: 144px;
   cursor: ns-resize;
   touch-action: none;
 }
@@ -2386,7 +2467,7 @@ h2 {
   justify-content: space-between;
   align-items: flex-end;
   width: 25px;
-  height: 146px;
+  height: 112px;
   padding: 3px 0 18px;
   color: var(--muted);
   font-size: 0.59rem;
@@ -2397,7 +2478,7 @@ h2 {
   position: relative;
   display: block;
   width: 16px;
-  height: 146px;
+  height: 112px;
   margin: 2px auto 0;
   border: 2px solid rgba(231, 244, 255, 0.72);
   border-radius: 999px 999px 8px 8px;
@@ -2432,9 +2513,9 @@ h2 {
 .thermometer-range {
   position: absolute;
   z-index: 2;
-  top: 68px;
+  top: 51px;
   left: 50%;
-  width: 136px;
+  width: 102px;
   height: 28px;
   margin: 0;
   transform: translate(-50%, -50%) rotate(-90deg);
@@ -2497,6 +2578,6 @@ h2 {
 
 @media (max-width: 520px) {
   .readout-group-body.has-aside {
-    grid-template-columns: minmax(0, 1fr) 106px;
+    grid-template-columns: 1fr;
   }
 }

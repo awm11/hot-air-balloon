@@ -36,31 +36,35 @@ function FlowTimeseries({ id, samples, nowS, scaleLps }) {
     .join(' ');
 
   return (
-    <svg
-      className="flow-timeseries"
-      viewBox={`0 0 ${width} ${height}`}
-      role="img"
-      aria-label="Past five seconds of four-second rolling-average net airflow. Entering air is green above the axis; leaving air is red below it."
-      preserveAspectRatio="none"
-    >
-      <defs>
-        <clipPath id={`${id}-entering`}>
-          <rect x="0" y="0" width={width} height={axisY} />
-        </clipPath>
-        <clipPath id={`${id}-leaving`}>
-          <rect x="0" y={axisY} width={width} height={axisY} />
-        </clipPath>
-      </defs>
-      <line className="flow-axis" x1="0" y1={axisY} x2={width} y2={axisY} />
-      {path ? (
-        <>
-          <path className="flow-trace flow-trace-entering" d={path} clipPath={`url(#${id}-entering)`} />
-          <path className="flow-trace flow-trace-leaving" d={path} clipPath={`url(#${id}-leaving)`} />
-        </>
-      ) : null}
-      <text className="flow-axis-label" x="4" y={axisY - 4}>ENTERING</text>
-      <text className="flow-axis-label" x="4" y={axisY + 9}>LEAVING</text>
-    </svg>
+    <div className="flow-timeseries-wrap">
+      <svg
+        className="flow-timeseries"
+        viewBox={`0 0 ${width} ${height}`}
+        role="img"
+        aria-label="Past five seconds of four-second rolling-average net airflow. Entering air is green above the axis; leaving air is red below it."
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <clipPath id={`${id}-entering`}>
+            <rect x="0" y="0" width={width} height={axisY} />
+          </clipPath>
+          <clipPath id={`${id}-leaving`}>
+            <rect x="0" y={axisY} width={width} height={axisY} />
+          </clipPath>
+        </defs>
+        <line className="flow-axis" x1="0" y1={axisY} x2={width} y2={axisY} />
+        {path ? (
+          <>
+            <path className="flow-trace flow-trace-entering" d={path} clipPath={`url(#${id}-entering)`} />
+            <path className="flow-trace flow-trace-leaving" d={path} clipPath={`url(#${id}-leaving)`} />
+          </>
+        ) : null}
+      </svg>
+      <span className="flow-direction-labels" aria-hidden="true">
+        <span>ENTERING</span>
+        <span>LEAVING</span>
+      </span>
+    </div>
   );
 }
 
@@ -248,7 +252,7 @@ export default function Readouts({ metrics, ambientC, setAmbientC }) {
   const temperatureC = kelvinToCelsius(metrics.temperatureK);
   const rawTemperatureC = kelvinToCelsius(metrics.rawTemperatureK);
   const thermometerLevel = ((ambientC - (-5)) / (35 - (-5))) * 100;
-  const thermometerMarkerY = 122.5 - thermometerLevel * 1.14;
+  const thermometerMarkerY = 92.5 - thermometerLevel * 0.84;
   const resultantDirection = metrics.resultantN > 0.5 ? '↑' : metrics.resultantN < -0.5 ? '↓' : '0';
   const resultantTone = metrics.resultantN > 0.5 ? 'positive' : metrics.resultantN < -0.5 ? 'negative' : '';
   const dragDirection = metrics.dragN > 0.5 ? '↑' : metrics.dragN < -0.5 ? '↓' : '0';
@@ -359,58 +363,62 @@ export default function Readouts({ metrics, ambientC, setAmbientC }) {
         title="Air state & density"
         className="air-state-readout-group"
         aside={(
-          <label className="thermometer-control">
-            <span className="thermometer-heading">
-              <strong>Ambient</strong>
-              <output>{ambientC} °C</output>
-            </span>
-            <span
-              className="thermometer"
-              style={{ '--thermometer-marker-y': `${thermometerMarkerY}px` }}
-              onPointerDown={(event) => {
-                event.currentTarget.setPointerCapture?.(event.pointerId);
-                updateAmbientFromPointer(event);
-              }}
-              onPointerMove={(event) => {
-                if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+          <div className="air-state-side">
+            <label className="thermometer-control">
+              <span className="thermometer-heading">
+                <strong>Ambient</strong>
+                <output>{ambientC} °C</output>
+              </span>
+              <span
+                className="thermometer"
+                style={{ '--thermometer-marker-y': `${thermometerMarkerY}px` }}
+                onPointerDown={(event) => {
+                  event.currentTarget.setPointerCapture?.(event.pointerId);
                   updateAmbientFromPointer(event);
-                }
-              }}
-              onPointerUp={(event) => event.currentTarget.releasePointerCapture?.(event.pointerId)}
-            >
-              <span className="thermometer-scale" aria-hidden="true">
-                <span>35°</span>
-                <span>15°</span>
-                <span>−5°</span>
+                }}
+                onPointerMove={(event) => {
+                  if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
+                    updateAmbientFromPointer(event);
+                  }
+                }}
+                onPointerUp={(event) => event.currentTarget.releasePointerCapture?.(event.pointerId)}
+              >
+                <span className="thermometer-scale" aria-hidden="true">
+                  <span>35°</span>
+                  <span>15°</span>
+                  <span>−5°</span>
+                </span>
+                <span className="thermometer-tube" aria-hidden="true">
+                  <span className="thermometer-mercury" />
+                  <span className="thermometer-bulb" />
+                </span>
+                <span className="thermometer-thumb" aria-hidden="true" />
+                <input
+                  className="thermometer-range"
+                  type="range"
+                  min="-5"
+                  max="35"
+                  step="1"
+                  value={ambientC}
+                  aria-label="Ambient temperature"
+                  onChange={(event) => setAmbientC(Number(event.target.value))}
+                />
               </span>
-              <span className="thermometer-tube" aria-hidden="true">
-                <span className="thermometer-mercury" />
-                <span className="thermometer-bulb" />
-              </span>
-              <span className="thermometer-thumb" aria-hidden="true" />
-              <input
-                className="thermometer-range"
-                type="range"
-                min="-5"
-                max="35"
-                step="1"
-                value={ambientC}
-                aria-label="Ambient temperature"
-                onChange={(event) => setAmbientC(Number(event.target.value))}
+            </label>
+            <div className="air-state-side-metrics">
+              <Metric
+                label="Inside temperature"
+                value={`${temperatureC.toFixed(1)} °C`}
+                detail={`ambient ${ambientC} °C · raw ${rawTemperatureC.toFixed(0)} °C`}
               />
-            </span>
-          </label>
+              <Metric
+                label="Pressure proxy mismatch"
+                value={`${metrics.pressureMismatchPct >= 0 ? '+' : ''}${metrics.pressureMismatchPct.toFixed(1)}%`}
+              />
+            </div>
+          </div>
         )}
       >
-        <Metric
-          label="Inside temperature"
-          value={`${temperatureC.toFixed(1)} °C`}
-          detail={`ambient ${ambientC} °C · raw ${rawTemperatureC.toFixed(0)} °C`}
-        />
-        <Metric
-          label="Pressure proxy mismatch"
-          value={`${metrics.pressureMismatchPct >= 0 ? '+' : ''}${metrics.pressureMismatchPct.toFixed(1)}%`}
-        />
         <DensityComparison inside={metrics.rhoIn} outside={metrics.rhoOut} />
       </ReadoutGroup>
 
